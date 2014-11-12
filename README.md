@@ -4,7 +4,7 @@ Generate-JS-Events
 Event emitter inheritance 
 
 
-#Index
+#EventEmitter
 
 **Functions**
 
