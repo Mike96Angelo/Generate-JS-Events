@@ -1,0 +1,30 @@
+{
+  "name": "Generate-JS-Events",
+  "version": "1.0.0",
+  "description": "Event emitter inheritance",
+  "main": "events.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/Mike96Angelo/Generate-JS-Events.git"
+  },
+  "keywords": [
+    "generate",
+    "generator",
+    "inherit",
+    "inheritance",
+    "prototype",
+    "event",
+    "events",
+    "EventEmitter",
+    "emitter"
+  ],
+  "author": "Michaelangelo Jong",
+  "license": "TIM",
+  "bugs": {
+    "url": "https://github.com/Mike96Angelo/Generate-JS-Events/issues"
+  },
+  "homepage": "https://github.com/Mike96Angelo/Generate-JS-Events"
+}
