@@ -12,7 +12,6 @@ Event emitter inheritance
 * [once(event, listener)](#once)
 * [off(event, listener)](#off)
 * [emit(event, data)](#emit)
-  * [emit~emitOnFunc(func)](#emit..emitOnFunc)
  
 <a name="on"></a>
 #on(event, listener)
