@@ -6,6 +6,10 @@ Event emitter inheritance
 
 #EventEmitter
 
+**Inherits from**
+
+* [Generator](https://github.com/Mike96Angelo/Generate-JS)
+
 **Functions**
 
 * [on(event, listener)](#on)
