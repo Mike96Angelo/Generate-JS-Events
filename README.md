@@ -8,7 +8,7 @@ Event emitter inheritance
 
 **Inherits from**
 
-* [Generator](https://github.com/Mike96Angelo/Generate-JS)
+* [Generator](generate-js)
 
 **Functions**
 
