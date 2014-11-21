@@ -1,8 +1,10 @@
-// events.js
-// Author: Michaelangelo Jong
+/**
+ * @name generate.js
+ * @author Michaelangelo Jong
+ */
 
 // Dependences:
-var Generator = require('generator-js');
+var Generator = require('generate-js');
 
 // Constructor
 var EventEmitter = Generator.generate(
@@ -148,7 +150,7 @@ EventEmitter.definePrototypeMethods([
         }
 
         if (_['on' + event] instanceof Function) {
-            _['on' + event](data);
+            setTimeout(emitOnFunc(_['on' + event]), 0);
         }
 
         if (listeners instanceof Array) {

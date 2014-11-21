@@ -1,6 +1,6 @@
 {
   "name": "generate-js-events",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Event emitter inheritance",
   "main": "events.js",
   "scripts": {
@@ -26,5 +26,8 @@
   "bugs": {
     "url": "https://github.com/Mike96Angelo/Generate-JS-Events/issues"
   },
-  "homepage": "https://github.com/Mike96Angelo/Generate-JS-Events"
+  "homepage": "https://github.com/Mike96Angelo/Generate-JS-Events",
+  "dependencies": {
+    "generate-js": "^1.0.0"
+  }
 }
