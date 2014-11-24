@@ -1,6 +1,6 @@
 {
   "name": "generate-js-events",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "Event emitter inheritance",
   "main": "events.js",
   "scripts": {

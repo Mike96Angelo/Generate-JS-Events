@@ -89,13 +89,13 @@ A new object that inherits from the generator that created it using the [ EventE
 * *listener* `Function` Event handler function.
 * *return*: `Object` *This* object.
 
-Adds a 'listener' on 'event' to this EventEmitter instance.
+Adds a 'listener' on 'event' to *this* EventEmitter instance.
 
 Example:
 ```javascript
 /*
  * Set lestener.
- * NOTE: myEmitter.off('error') does not remove this listener.
+ * NOTE: myEmitter.off('error') does not remove *this* listener.
  */
 myEmitter.onerror = function (err) {
 	console.log(err);
@@ -117,7 +117,7 @@ myEmitter.on('myevent', function(a, b, c) {
 * *listener* `Function` Event handler function.
 * *return*: `Object` *This* object.
 
-Adds a 'listener' on 'event' to this EventEmitter instance which is removed after one 'event'.
+Adds a 'listener' on 'event' to *this* EventEmitter instance which is removed after one 'event'.
 
 Example:
 ```javascript
@@ -137,7 +137,7 @@ myEmitter.once('myobjectevent', function(event) {
 * *listener* `Function` Event handler function.
 * *return*: `Object` *This* object.
 
-Removes a 'listener' on 'event', or all listeners on 'event', or all listeners from this EventEmitter instance.
+Removes a 'listener' on 'event', or all listeners on 'event', or all listeners from *this* EventEmitter instance.
 
 Example:
 ```javascript
@@ -171,7 +171,7 @@ myEmitter.off();
 * *args* `Arguments` All other `arguments` to be emitted to listeners.
 * *return*: `Object` *This* object.
 
-Emits an 'event' with 'args' on this EventEmitter instance.
+Emits an 'event' with 'args' on *this* EventEmitter instance.
 
 Example:
 ```javascript
@@ -189,13 +189,13 @@ myEmitter.emit('myevent', 1, 2, 3);
 * *eventObject* `Object` An event object to be emitted to listeners.
 * *return*: `Object` *This* object.
 
-Emits an event object containing 'eventObject' on this EventEmitter instance.
+Emits an event object containing 'eventObject' on *this* EventEmitter instance.
 
 Example:
 ```javascript
 /*
  * Emits {eventData: 'data'} on 'myobjectevent' listener(s).
  */
-myEmitter.emit('myobjectevent', {eventData: 'data'});
+myEmitter.emitEvent('myobjectevent', {eventData: 'data'});
 
 ```
