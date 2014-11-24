@@ -1,59 +1,201 @@
-Generate-JS-Events
-==================
+## Table of Contents
 
-Event emitter inheritance 
+* [ EventEmitter ](#event-emitter)
+	* [ Inherits: Generator::Generation ](https://github.com/Mike96Angelo/Generate-JS#class-generation)
+	* [ EventEmitter.create() ](#event-emitter-create)
+	* [ EventEmitter.generate(create, init) ](#event-emitter-generate)
+	* [ CLass: Generation ](#class-generation)
+		* [ Inherits: Generator::Generation ](https://github.com/Mike96Angelo/Generate-JS#class-generation)
+	* [ Class: Creation ](#class-creation)
+		* [ Inherits: Generator::Creation ](https://github.com/Mike96Angelo/Generate-JS#class-creation)
+		* [ Creation.on(event, listener) ](#creation-on)
+		* [ Creation.once(event, listener) ](#creation-once)
+		* [ Creation.off([event], [listener]) ](#creation-off)
+		* [ Creation.emit(event, [...args]) ](#creation-emit)
+		* [ Creation.emitEvent(event, eventObject) ](#creation-emit-event)
 
+<a name="event-emitter"></a>
+EventEmitter
+============
 
-#EventEmitter
+A generator for EventEmitter, lets you create objects that can emit events, or generate a new generator that inherits from EventEmitter.
 
-**Inherits from**
+### Install:
+```
+$ npm install generate-js-events
+```
 
-* [Generator](https://github.com/Mike96Angelo/Generate-JS)
+<a name="event-emitter-create"></a>
+## EventEmitter.create()
 
-**Functions**
+* *return*: `Object` A new object that inherits from **EventEmitter**.
 
-* [on(event, listener)](#on)
-* [once(event, listener)](#once)
-* [off(event, listener)](#off)
-* [emit(event, data)](#emit)
- 
-<a name="on"></a>
-#on(event, listener)
+Creates a new object that inherits from **EventEmitter**.
+
+Example:
+```javascript
+var EventEmitter = require('generate-js-events');
+
+var myEmitter = EventEmitter.create();
+```
+
+<a name="event-emitter-generate"></a>
+## EventEmitter.generate(create, init)
+
+* *create* `Function` Create method that gets called when creating a new object that inherits from **EventEmitter**.
+* *init* `Function` Init method that gets called to initialize any data stores needed by prototypal methods.
+* *return*: `Generator` A new generator that inherits from **EventEmitter**.
+
+Returns a new generator that inherits from **EventEmitter**.
+
+Example:
+```javascript
+var myGenerator = EventEmitter.generate(
+	/* create method */
+	function myGenerator() {
+		// my create code here
+	},
+	/* init method */
+	function () {
+		// my init code here
+	}
+);
+
+myGenerator.definePrototype(
+	{
+		// my descriptor here
+	},
+	{
+		// my prototype here
+	}
+);
+
+```
+
+<a name="class-generation"></a>
+## Class: Generation
+
+A new generator that inherits from the generator that generated it using the [ EventEmitter.generate(create, init) ](#event-emitter-generate) method.
+
+<a name="class-creation"></a>
+## Class: Creation
+
+A new object that inherits from the generator that created it using the [ EventEmitter.create() ](#event-emitter-create) method.
+
+<a name="creation-on"></a>
+## Creation.on(event, listener)
+
+* *event* `String` Name of event.
+* *listener* `Function` Event handler function.
+* *return*: `Object` *This* object.
+
 Adds a 'listener' on 'event' to this EventEmitter instance.
 
-**Params**
+Example:
+```javascript
+/*
+ * Set lestener.
+ * NOTE: myEmitter.off('error') does not remove this listener.
+ */
+myEmitter.onerror = function (err) {
+	console.log(err);
+}
 
-- event `String` - Name of event.  
-- listener `function` - Event handler function.  
+/*
+ * Add listener.
+ */
+myEmitter.on('myevent', function(a, b, c) {
+	console.log(a, b, c);
+});
 
-**Returns**: `EventEmitter` - This EventEmitter instance.  
-<a name="once"></a>
-#once(event, listener)
+```
+
+<a name="creation-once"></a>
+## Creation.once(event, listener)
+
+* *event* `String` Name of event.
+* *listener* `Function` Event handler function.
+* *return*: `Object` *This* object.
+
 Adds a 'listener' on 'event' to this EventEmitter instance which is removed after one 'event'.
 
-**Params**
+Example:
+```javascript
+/*
+ * Add one-time listener.
+ */
+myEmitter.once('myobjectevent', function(event) {
+	console.log(event);
+});
 
-- event `String` - Name of event.  
-- listener `function` - Event handler function.  
+```
 
-**Returns**: `EventEmitter` - This EventEmitter instance.  
-<a name="off"></a>
-#off(event, listener)
+<a name="creation-off"></a>
+## Creation.off([event], [listener])
+
+* *event* `String` Name of event.
+* *listener* `Function` Event handler function.
+* *return*: `Object` *This* object.
+
 Removes a 'listener' on 'event', or all listeners on 'event', or all listeners from this EventEmitter instance.
 
-**Params**
+Example:
+```javascript
+/*
+ * Remove specific listener.
+ */
+function specific(event) {
+	console.log(event);
+}
 
-- event `String` - Name of event.  
-- listener `function` - Event handler function.  
+myEmitter.on('specific', specific);
 
-**Returns**: `EventEmitter` - This EventEmitter instance.  
-<a name="emit"></a>
-#emit(event, data)
-Emits an 'event' containing 'data' on this EventEmitter instance.
+myEmitter.off('specific', specific);
 
-**Params**
+/*
+ * Remove all listeners on same event.
+ */
+myEmitter.off('same');
 
-- event `String` - Name of event.  
-- data `Object` - Event handler function.  
+/*
+ * Remove All listeners.
+ */
+myEmitter.off();
 
-**Returns**: `EventEmitter` - This EventEmitter instance.  
+```
+
+<a name="creation-emit"></a>
+## Creation.emit(event, [...args])
+
+* *event* `String` Name of event.
+* *args* `Arguments` All other `arguments` to be emitted to listeners.
+* *return*: `Object` *This* object.
+
+Emits an 'event' with 'args' on this EventEmitter instance.
+
+Example:
+```javascript
+/*
+ * Emits 1, 2, 3 on 'myevent' listener(s).
+ */
+myEmitter.emit('myevent', 1, 2, 3);
+
+```
+
+<a name="creation-emit-event"></a>
+## Creation.emitEvent(event, eventObject)
+
+* *event* `String` Name of event.
+* *eventObject* `Object` An event object to be emitted to listeners.
+* *return*: `Object` *This* object.
+
+Emits an event object containing 'eventObject' on this EventEmitter instance.
+
+Example:
+```javascript
+/*
+ * Emits {eventData: 'data'} on 'myobjectevent' listener(s).
+ */
+myEmitter.emit('myobjectevent', {eventData: 'data'});
+
+```
