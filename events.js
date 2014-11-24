@@ -135,7 +135,7 @@ EventEmitter.definePrototype(
          */
         emit: function emit(event) {
             var _ = this,
-                args = Array.prototype.slice(arguments, 1),
+                args = Array.prototype.slice.call(arguments, 1),
                 i,
                 length,
                 listener,
