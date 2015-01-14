@@ -3,7 +3,7 @@
 * [ EventEmitter ](#event-emitter)
 	* [ Inherits: Generator::Generation ](https://github.com/Mike96Angelo/Generate-JS#class-generation)
 	* [ EventEmitter.create() ](#event-emitter-create)
-	* [ EventEmitter.generate(create, init) ](#event-emitter-generate)
+	* [ EventEmitter.generate(create) ](#event-emitter-generate)
 	* [ CLass: Generation ](#class-generation)
 		* [ Inherits: Generator::Generation ](https://github.com/Mike96Angelo/Generate-JS#class-generation)
 	* [ Class: Creation ](#class-creation)
@@ -18,7 +18,7 @@
 EventEmitter
 ============
 
-A generator for EventEmitter, lets you create objects that can emit events, or generate a new generator that inherits from EventEmitter.
+A generator for EventEmitter, lets you create an objects that can emit events, or generate a new generator that inherits from EventEmitter.
 
 ### Install:
 ```
@@ -40,10 +40,9 @@ var myEmitter = EventEmitter.create();
 ```
 
 <a name="event-emitter-generate"></a>
-## EventEmitter.generate(create, init)
+## EventEmitter.generate(create)
 
 * *create* `Function` Create method that gets called when creating a new object that inherits from **EventEmitter**.
-* *init* `Function` Init method that gets called to initialize any data stores needed by prototypal methods.
 * *return*: `Generator` A new generator that inherits from **EventEmitter**.
 
 Returns a new generator that inherits from **EventEmitter**.
@@ -54,10 +53,6 @@ var myGenerator = EventEmitter.generate(
 	/* create method */
 	function myGenerator() {
 		// my create code here
-	},
-	/* init method */
-	function () {
-		// my init code here
 	}
 );
 
@@ -75,7 +70,7 @@ myGenerator.definePrototype(
 <a name="class-generation"></a>
 ## Class: Generation
 
-A new generator that inherits from the generator that generated it using the [ EventEmitter.generate(create, init) ](#event-emitter-generate) method.
+A new generator that inherits from the generator that generated it using the [ EventEmitter.generate(create) ](#event-emitter-generate) method.
 
 <a name="class-creation"></a>
 ## Class: Creation

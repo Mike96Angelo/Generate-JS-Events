@@ -1,5 +1,5 @@
 /**
- * @name generate.js
+ * @name events.js
  * @author Michaelangelo Jong
  */
 
@@ -13,13 +13,6 @@ var EventEmitter = Generator.generate(
      */
     function EventEmitter() {
 
-    },
-
-    /**
-     * Inits for inheritance.
-     */
-    function () {
-        // init
         this.defineProperties(
             {
                 configurable: false,
@@ -27,8 +20,8 @@ var EventEmitter = Generator.generate(
                 writable: false
             },
             {
-                __events: {},
-                __onces: {}
+                __events: Object.create(null),
+                __onces: Object.create(null)
             }
         );
     }
