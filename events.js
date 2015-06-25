@@ -114,6 +114,10 @@ EventEmitter.definePrototype(
             if (typeof event === 'string') {
                 listeners = _.__events[event];
 
+                if (!(listeners instanceof Array)) {
+                    return _;
+                }
+
                 if (typeof listener === 'function' && typeof observer === 'object') {
                     for (i = listeners.length - 1; i >= 0; i--) {
                         if (listeners[i].listener === listener && listeners[i].observer === observer) {
