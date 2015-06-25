@@ -8,9 +8,9 @@
 		* [ Inherits: Generator::Generation ](https://github.com/Mike96Angelo/Generate-JS#class-generation)
 	* [ Class: Creation ](#class-creation)
 		* [ Inherits: Generator::Creation ](https://github.com/Mike96Angelo/Generate-JS#class-creation)
-		* [ Creation.on(event, listener) ](#creation-on)
-		* [ Creation.once(event, listener) ](#creation-once)
-		* [ Creation.off([event], [listener]) ](#creation-off)
+		* [ Creation.on(event, listener[, observer]) ](#creation-on)
+		* [ Creation.once(event, listener[, observer]) ](#creation-once)
+		* [ Creation.off([event][, listener][, observer]) ](#creation-off)
 		* [ Creation.emit(event, [...args]) ](#creation-emit)
 		* [ Creation.emitEvent(event, eventObject) ](#creation-emit-event)
 
@@ -78,10 +78,11 @@ A new generator that inherits from the generator that generated it using the [ E
 A new object that inherits from the generator that created it using the [ EventEmitter.create() ](#event-emitter-create) method.
 
 <a name="creation-on"></a>
-## Creation.on(event, listener)
+## Creation.on(event, listener[, observer]
 
 * *event* `String` Name of event.
 * *listener* `Function` Event handler function.
+* *observer* `Object` Object reference for binding.
 * *return*: `Object` *This* object.
 
 Adds a 'listener' on 'event' to *this* EventEmitter instance.
@@ -106,10 +107,12 @@ myEmitter.on('myevent', function(a, b, c) {
 ```
 
 <a name="creation-once"></a>
-## Creation.once(event, listener)
+## Creation.once(event, listener[, observer])
 
 * *event* `String` Name of event.
 * *listener* `Function` Event handler function.
+* *observer* `Object` Object reference for binding.
+
 * *return*: `Object` *This* object.
 
 Adds a 'listener' on 'event' to *this* EventEmitter instance which is removed after one 'event'.
@@ -126,10 +129,11 @@ myEmitter.once('myobjectevent', function(event) {
 ```
 
 <a name="creation-off"></a>
-## Creation.off([event], [listener])
+## Creation.off([event][, listener][, observer])
 
 * *event* `String` Name of event.
 * *listener* `Function` Event handler function.
+* *observer* `Object` Object reference for binding.
 * *return*: `Object` *This* object.
 
 Removes a 'listener' on 'event', or all listeners on 'event', or all listeners from *this* EventEmitter instance.

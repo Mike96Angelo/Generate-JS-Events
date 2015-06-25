@@ -20,8 +20,7 @@ var EventEmitter = Generator.generate(
                 writable: false
             },
             {
-                __events: Object.create(null),
-                __onces: Object.create(null)
+                __events: Object.create(null)
             }
         );
     }
@@ -39,17 +38,26 @@ EventEmitter.definePrototype(
          * Adds a 'listener' on 'event' to this EventEmitter instance.
          * @param  {String} event      Name of event.
          * @param  {Function} listener Event handler function.
+         * @param  {Object} observer Object reference for binding.
          * @return {EventEmitter}      This EventEmitter instance.
          */
-        on: function on(event, listener) {
+        on: function on(event, listener, observer) {
             var _ = this,
                 listeners = _.__events[event];
-            if (typeof event === 'string' && listener instanceof Function) {
+
+            observer = typeof observer === 'object' ? observer : null;
+
+            if (typeof event === 'string' && typeof listener === 'function') {
                 if (!(listeners instanceof Array)) {
                     listeners = _.__events[event] = [];
                 }
-                listeners.push(listener);
+
+                listeners.push({
+                    listener: listener,
+                    observer: observer
+                });
             }
+
             return _;
         },
 
@@ -57,17 +65,18 @@ EventEmitter.definePrototype(
          * Adds a 'listener' on 'event' to this EventEmitter instance which is removed after one 'event'.
          * @param  {String} event      Name of event.
          * @param  {Function} listener Event handler function.
+         * @param  {Object} observer Object reference for binding.
          * @return {EventEmitter}      This EventEmitter instance.
          */
-        once: function once(event, listener) {
-            var _ = this,
-                listeners = _.__onces[event];
-            if (typeof event === 'string' && listener instanceof Function) {
-                if (!(listeners instanceof Array)) {
-                    listeners = _.__onces[event] = [];
-                }
-                listeners.push(listener);
-            }
+        once: function once(event, listener, observer) {
+            var _ = this;
+            var onceListener = function onceListener() {
+                _.off(event, onceListener);
+                listener.apply(_, arguments);
+            };
+
+            _.on(event, onceListener, observer);
+
             return _;
         },
 
@@ -75,48 +84,66 @@ EventEmitter.definePrototype(
          * Removes a 'listener' on 'event', or all listeners on 'event', or all listeners from this EventEmitter instance.
          * @param  {String} event      Name of event.
          * @param  {Function} listener Event handler function.
+         * @param  {Object} observer Object reference for binding.
          * @return {EventEmitter}      This EventEmitter instance.
          */
-        off: function off(event, listener) {
+        off: function off() {
             var _ = this,
                 listeners,
-                length,
                 i,
-                key;
-            if (typeof event === 'string' && listener instanceof Function) {
+                key,
+
+                event = (typeof arguments[0] === 'string') ?
+                    arguments[0] :
+                    false,
+
+                listener = (typeof arguments[0] === 'function') ?
+                    arguments[0] :
+                    (typeof arguments[1] === 'function') ?
+                        arguments[1] :
+                        false,
+
+                observer = (typeof arguments[0] === 'object') ?
+                    arguments[0] :
+                    (typeof arguments[1] === 'object') ?
+                        arguments[1] :
+                        (typeof arguments[2] === 'object') ?
+                            arguments[2] :
+                            false;
+
+            if (typeof event === 'string') {
                 listeners = _.__events[event];
-                if (listeners instanceof Array) {
-                    length = listeners.length;
-                    for (i = 0; i < length; i++) {
-                        if (listeners[i] === listener) {
+
+                if (typeof listener === 'function' && typeof observer === 'object') {
+                    for (i = listeners.length - 1; i >= 0; i--) {
+                        if (listeners[i].listener === listener && listeners[i].observer === observer) {
                             listeners.splice(i, 1);
-                            i--;
+                        }
+                    }
+                } else if (typeof listener === 'function' || typeof observer === 'object') {
+                    for (i = listeners.length - 1; i >= 0; i--) {
+                        if (listeners[i].listener === listener || listeners[i].observer === observer) {
+                            listeners.splice(i, 1);
+                        }
+                    }
+                } else {
+                    delete _.__events[event];
+                }
+            } else if (typeof listener === 'function' || typeof observer === 'object') {
+                for (key in _.__events) {
+                    listeners = _.__events[key];
+                    for (i = listeners.length - 1; i >= 0; i--) {
+                        if (listeners[i].listener === listener || listeners[i].observer === observer) {
+                            listeners.splice(i, 1);
                         }
                     }
                 }
-                listeners = _.__onces[event];
-                if (listeners instanceof Array) {
-                    length = listeners.length;
-                    for (i = 0; i < length; i++) {
-                        if (listeners[i] === listener) {
-                            listeners.splice(i, 1);
-                            i--;
-                        }
-                    }
-                }
-            } else if (typeof event === 'string') {
-                delete _.__events[event];
-                delete _.__onces[event];
             } else {
-                listeners = _.__events;
-                for (key in listeners) {
-                    delete listeners[key];
-                }
-                listeners = _.__onces;
-                for (key in listeners) {
-                    delete listeners[key];
+                for (key in _.__events) {
+                    delete _.__events[key];
                 }
             }
+
             return _;
         },
 
@@ -145,8 +172,9 @@ EventEmitter.definePrototype(
             }
 
             listeners = _.__events[event];
+            window.listeners = listeners;
 
-            if (event === 'error' && !listeners && !(_.onerror instanceof Function)) {
+            if (event === 'error' && !listeners && typeof _.onerror !== 'function') {
                 if (args[0] instanceof Error){
                     throw args[0];
                 } else {
@@ -154,26 +182,15 @@ EventEmitter.definePrototype(
                 }
             }
 
-            if (_['on' + event] instanceof Function) {
+            if (typeof _['on' + event] === 'function') {
                 setTimeout(emitOnFunc(_['on' + event]), 0);
             }
 
             if (listeners instanceof Array) {
                 length = listeners.length;
+
                 for (i = 0; i < length; i++) {
-                    listener = listeners[i];
-                    setTimeout(emitOnFunc(listener), 0);
-                }
-            }
-
-            listeners = _.__onces[event];
-
-            delete _.__onces[event];
-
-            if (listeners instanceof Array) {
-                length = listeners.length;
-                for (i = 0; i < length; i++) {
-                    listener = listeners[i];
+                    listener = listeners[i].listener;
                     setTimeout(emitOnFunc(listener), 0);
                 }
             }

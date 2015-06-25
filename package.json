@@ -1,6 +1,6 @@
 {
   "name": "generate-js-events",
-  "version": "2.0.0",
+  "version": "2.1.0",
   "description": "A generator for EventEmitter, lets you create an objects that can emit events.",
   "main": "events.js",
   "scripts": {
@@ -28,6 +28,6 @@
   },
   "homepage": "https://github.com/Mike96Angelo/Generate-JS-Events",
   "dependencies": {
-    "generate-js": "^2.0.0"
+    "generate-js": "^2.1.1"
   }
 }
