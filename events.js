@@ -164,6 +164,7 @@ EventEmitter.definePrototype(
                 length,
                 listener,
                 listeners;
+
             /**
              * Creates a closure around the listener 'func' and 'args'.
              * @param  {Function} func A listener.
@@ -171,7 +172,7 @@ EventEmitter.definePrototype(
              */
             function emitOnFunc(func) {
                 return function () {
-                    func.apply(null, args);
+                    func.apply(_, args);
                 };
             }
 
