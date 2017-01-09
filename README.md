@@ -1,3 +1,10 @@
+# Generate-JS-Events
+
+[![GitHub release](https://img.shields.io/github/release/Mike96angelo/Generate-JS-Events.svg?maxAge=21600)](https://github.com/Mike96Angelo/Generate-JS-Events)
+[![npm version](https://img.shields.io/npm/v/generate-js-events.svg?maxAge=21600)](https://www.npmjs.com/package/generate-js-events)
+[![npm downloads](https://img.shields.io/npm/dm/generate-js-events.svg?maxAge=604800)](https://www.npmjs.com/package/generate-js-events)
+[![npm downloads](https://img.shields.io/npm/dt/generate-js-events.svg?maxAge=604800)](https://www.npmjs.com/package/generate-js-events)
+
 ## Table of Contents
 
 * [ EventEmitter ](#event-emitter)
