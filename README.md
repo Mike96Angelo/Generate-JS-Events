@@ -2,7 +2,7 @@
 
 * [ EventEmitter ](#event-emitter)
 	* [ Inherits: Generator::Generation ](https://github.com/Mike96Angelo/Generate-JS#class-generation)
-	* [ EventEmitter.create() ](#event-emitter-create)
+	* [ new EventEmitter() ](#event-emitter-create)
 	* [ EventEmitter.generate(create) ](#event-emitter-generate)
 	* [ CLass: Generation ](#class-generation)
 		* [ Inherits: Generator::Generation ](https://github.com/Mike96Angelo/Generate-JS#class-generation)
@@ -26,7 +26,7 @@ $ npm install generate-js-events
 ```
 
 <a name="event-emitter-create"></a>
-## EventEmitter.create()
+## new EventEmitter()
 
 * *return*: `Object` A new object that inherits from **EventEmitter**.
 
@@ -36,7 +36,7 @@ Example:
 ```javascript
 var EventEmitter = require('generate-js-events');
 
-var myEmitter = EventEmitter.create();
+var myEmitter = new EventEmitter();
 ```
 
 <a name="event-emitter-generate"></a>
@@ -75,7 +75,7 @@ A new generator that inherits from the generator that generated it using the [ E
 <a name="class-creation"></a>
 ## Class: Creation
 
-A new object that inherits from the generator that created it using the [ EventEmitter.create() ](#event-emitter-create) method.
+A new object that inherits from the generator that created it using the [ new EventEmitter() ](#event-emitter-create) method.
 
 <a name="creation-on"></a>
 ## Creation.on(event, listener[, observer]
